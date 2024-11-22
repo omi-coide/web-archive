@@ -12,12 +12,12 @@ import ScreenshotView from './screenshot-view'
 import { useNavigate } from '~/router'
 import { updatePageShowcase } from '~/data/page'
 import CardEditDialog from '~/components/card-edit-dialog'
-import AppContext from '~/store/app'
+import TagContext from '~/store/tag'
 
 function Comp({ page, onPageDelete }: { page: Page, onPageDelete?: (page: Page) => void }) {
   const navigate = useNavigate()
 
-  const { tagCache, refreshTagCache } = useContext(AppContext)
+  const { tagCache, refreshTagCache } = useContext(TagContext)
   const bindTags = tagCache?.filter(tag => tag.pageIds.includes(page.id)) ?? []
   const tagBadgeList = bindTags.map((tag) => {
     return (<Badge key={tag.id} variant="outline" className="select-none">{tag.name}</Badge>)
@@ -71,7 +71,7 @@ function Comp({ page, onPageDelete }: { page: Page, onPageDelete?: (page: Page) 
       <Card
         key={page.id}
         onClick={() => handleClickPageCard(page)}
-        className="cursor-pointer hover:shadow-lg transition-shadow flex flex-col relative group"
+        className="cursor-pointer hover:shadow-lg transition-shadow flex flex-col relative group overflow-hidden"
       >
         <CardHeader>
           <CardTitle className="leading-8 text-lg line-clamp-2">{page.title}</CardTitle>
